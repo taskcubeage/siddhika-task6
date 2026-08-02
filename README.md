@@ -1,3 +1,3 @@
 # siddhika-task6
 
-Developer 1 completed Task 6
+Developer 2 completed Task 6
