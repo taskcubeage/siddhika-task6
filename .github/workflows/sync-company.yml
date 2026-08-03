@@ -1,25 +1,26 @@
-name: Sync Team Development to Company
+name: Sync Company Workflow
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - development
+
+permissions:
+  contents: write
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Team Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Push development to Company Repository
+      - name: Sync changes to company repository
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          git push https://x-access-token:${PAT_TOKEN}@github.com/SiddhikaShukla25/siddhika-task6.git HEAD:development
+          git remote remove origin || true
+          git remote add company https://x-access-token:${PAT_TOKEN}@github.com/SiddhikaShukla25/siddhika-task6.git
+          git push company HEAD:development
