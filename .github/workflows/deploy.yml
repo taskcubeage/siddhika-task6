@@ -1,0 +1,23 @@
+name: Deployment Approval
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: "Type DEPLOY to continue"
+        required: true
+      environment:
+        description: "Deploy to"
+        required: true
+        default: "development"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show Deployment Details
+        run: |
+          echo "Deployment Approved"
+          echo "Type: ${{ github.event.inputs.type }}"
+          echo "Environment: ${{ github.event.inputs.environment }}"
